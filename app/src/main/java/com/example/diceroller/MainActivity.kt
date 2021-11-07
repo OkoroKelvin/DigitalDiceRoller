@@ -2,7 +2,7 @@ package com.example.diceroller
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -18,18 +18,20 @@ class MainActivity : AppCompatActivity() {
 
 
         val rollButton: Button = findViewById(R.id.button2)
+
         rollButton.setOnClickListener {
+            val diceImage: ImageView = findViewById(R.id.imageView)
+
             val cDice1 = rollDice1()
-            val cDice2 = rollDice2()
-            val sumDice = cDice1 + cDice2
 
-            val resultTextView: TextView = findViewById(R.id.textView2)
-            val resultTextView2: TextView = findViewById(R.id.textView3)
-            val resultTextView3: TextView = findViewById(R.id.textView)
-
-            resultTextView.text = cDice1.toString()
-            resultTextView2.text = cDice2.toString()
-            resultTextView3.text = sumDice.toString()
+            when (cDice1) {
+                1 -> diceImage.setImageResource(R.drawable.dice_1)
+                2 -> diceImage.setImageResource(R.drawable.dice_2)
+                3 -> diceImage.setImageResource(R.drawable.dice_3)
+                4 -> diceImage.setImageResource(R.drawable.dice_4)
+                5 -> diceImage.setImageResource(R.drawable.dice_5)
+                6 -> diceImage.setImageResource(R.drawable.dice_6)
+            }
 
         }
 
@@ -41,23 +43,15 @@ class MainActivity : AppCompatActivity() {
      * Roll the dice and update the screen with the result.
      */
     private fun rollDice1(): Int {
-        // Create new Dice object with 6 sides and roll it
         val dice1 = Dice(6)
         return dice1.roll()
 
     }
 
-    private fun rollDice2(): Int {
-        // Create new Dice object with 6 sides and roll it
-        val dice2 = Dice(6)
-        return dice2.roll()
 
-    }
-}
-
-
-class Dice(private val numSides: Int) {
-    fun roll(): Int {
-        return (1..numSides).random()
+    class Dice(private val numSides: Int) {
+        fun roll(): Int {
+            return (1..numSides).random()
+        }
     }
 }
